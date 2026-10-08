@@ -1,0 +1,20 @@
+ndarray shape	Tuple giving the size of each axis, e.g. (genes, samples) = (20530, 576). Print it after every load, transpose and reshape.
+axis=0 vs axis=1	axis=0 reduces down the rows (one result per column); axis=1 reduces across columns (one result per row).
+Broadcasting	NumPy's rule for combining arrays of different shapes: align shapes from the right; each pair of dims must be equal or one of them 1. Size-1 dims are virtually stretched.
+keepdims=True	Keeps the reduced axis as size 1, e.g. (G,S).mean(axis=1, keepdims=True) -> (G,1), so the result broadcasts back over the samples.
+Silent broadcasting bug	On a square matrix, X - X.mean(axis=1) subtracts row means column-wise without any error. Always use keepdims or check shapes.
+Vectorization	Replacing Python loops with whole-array operations executed in compiled code; typically 10-100x faster.
+z-score	z = (x - mean) / SD; puts each gene on a unit-free scale with mean 0 and SD 1.
+ddof	'Delta degrees of freedom' in the SD denominator (N - ddof). NumPy and StandardScaler use 0; pandas .std() defaults to 1.
+StandardScaler orientation	Standardizes columns (features). For a genes x samples matrix, transpose to samples x genes first.
+Robust z-score	(x - median) / (1.4826 * MAD); less sensitive to outlier samples than mean/SD.
+Tidy data	Each variable is a column, each observation a row, each type of observational unit its own table.
+Wide vs long format	Wide: one row per sample, one column per gene. Long: one row per (sample, gene, value). pandas melt goes wide->long; pivot goes long->wide.
+merge validate=	pandas check on join cardinality, e.g. validate='one_to_one' raises if either key is duplicated.
+merge indicator=True	Adds a _merge column (both / left_only / right_only) to show where each row came from.
+TCGA barcode patient ID	First 12 characters of the barcode, e.g. TCGA-05-4244. One patient can have several samples.
+TCGA sample type code	Characters 14-15 of the barcode: 01 primary tumour, 02 recurrent tumour, 06 metastatic, 11 solid tissue normal.
+UCSC Xena HiSeqV2	TCGA gene-level RSEM expression, log2(norm_count + 1), stored genes x samples.
+Pinned environment	An environment file listing exact package versions so that code reruns identically later and elsewhere.
+Patient-level leakage	When samples from the same patient fall in both train and test sets, inflating performance. Prevent by splitting on patient_id.
+float32 vs float64	float32 uses half the memory (4 vs 8 bytes per value); precision is ample for expression values.

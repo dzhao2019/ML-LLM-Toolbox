@@ -1,0 +1,19 @@
+# Week 1 environment — ML for Bioinformatics
+# Create:   conda env create -f environment.yml
+# Activate: conda activate mlbio
+# Export the exact solved env for your repo afterwards:
+#   conda env export --no-builds > environment.lock.yml
+name: mlbio
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - numpy=2.3.4
+  - pandas=2.3.3
+  - matplotlib=3.10.7
+  - seaborn=0.13.2
+  - scikit-learn=1.7.2
+  - pyarrow=21.0.0
+  - jupyterlab=4.4
+  - ipykernel
+  - git
